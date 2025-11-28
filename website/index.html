@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #000000;
@@ -20,7 +19,6 @@
             align-items: center;
             padding: 20px;
         }
-
         .container {
             max-width: 1200px;
             width: 100%;
@@ -29,28 +27,24 @@
             gap: 40px;
             align-items: center;
         }
-
         .left-section h1 {
             color: #000000;
             font-size: 3.5rem;
             margin-bottom: 20px;
             line-height: 1.2;
         }
-
         .left-section p {
             color: #333333;
             font-size: 1.1rem;
             margin-bottom: 30px;
             line-height: 1.6;
         }
-
         .features {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 30px;
         }
-
         .feature {
             display: flex;
             align-items: center;
@@ -58,17 +52,14 @@
             color: #333333;
             font-size: 1rem;
         }
-
         .feature-icon {
             font-size: 1.5rem;
         }
-
         .buttons {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
         }
-
         button {
             padding: 12px 30px;
             border: none;
@@ -77,30 +68,25 @@
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-
         .btn-primary {
             background: #000000;
             color: white;
             border: 2px solid #000000;
         }
-
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
         .btn-secondary {
             background: transparent;
             color: #000000;
             border: 2px solid #000000;
         }
-
         .btn-secondary:hover {
             background: #000000;
             color: white;
             transform: translateY(-2px);
         }
-
         .status-badge {
             display: inline-block;
             background: #FF6B35;
@@ -111,7 +97,6 @@
             font-weight: bold;
             margin-bottom: 20px;
         }
-
         .right-section {
             background: white;
             border-radius: 15px;
@@ -121,7 +106,6 @@
             height: 500px;
             padding: 20px;
         }
-
         .chat-header {
             color: #000000;
             font-size: 1.3rem;
@@ -129,14 +113,12 @@
             margin-bottom: 10px;
             text-align: center;
         }
-
         .chat-subheader {
             color: #666666;
             font-size: 0.9rem;
             text-align: center;
             margin-bottom: 15px;
         }
-
         #chatBox {
             flex: 1;
             overflow-y: auto;
@@ -145,20 +127,16 @@
             border-radius: 10px;
             margin-bottom: 15px;
         }
-
         .message {
             margin-bottom: 12px;
             animation: fadeIn 0.3s ease-in;
         }
-
         .message.bot {
             text-align: left;
         }
-
         .message.user {
             text-align: right;
         }
-
         .message-content {
             display: inline-block;
             max-width: 70%;
@@ -167,17 +145,14 @@
             font-size: 0.95rem;
             line-height: 1.4;
         }
-
         .message.bot .message-content {
             background: #e0e0e0;
             color: #000000;
         }
-
         .message.user .message-content {
             background: #4169E1;
             color: white;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -188,13 +163,11 @@
                 transform: translateY(0);
             }
         }
-
         .input-group {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
-
         #chatInput {
             flex: 1;
             padding: 12px 15px;
@@ -203,12 +176,10 @@
             font-size: 0.95rem;
             outline: none;
         }
-
         #chatInput:focus {
             border-color: #000000;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
-
         #sendBtn {
             padding: 12px 25px;
             background: #4169E1;
@@ -219,21 +190,17 @@
             font-weight: bold;
             transition: background 0.3s;
         }
-
         #sendBtn:hover {
             background: #315AC1;
         }
-
         @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-
             .left-section h1 {
                 font-size: 2rem;
             }
-
             .right-section {
                 height: 400px;
             }
@@ -269,15 +236,15 @@
                     <span>AI-powered recommendations</span>
                 </div>
             </div>
-
+            
             <div class="buttons">
                 <button class="btn-primary" onclick="chatWithBot()">Try Now</button>
                 <button class="btn-secondary">Learn More</button>
             </div>
-
-            <div class="status-badge">🔧 Bot in Edit Mode - Not Published</div>
+            
+            <div class="status-badge">🚀 Bot in Live Mode - Ready to Chat</div>
         </div>
-
+        
         <!-- Right Section -->
         <div class="right-section">
             <div class="chat-header">ShopBot Live Chat</div>
@@ -286,131 +253,61 @@
             <div id="chatBox"></div>
             
             <div class="input-group">
-                <input type="text" id="chatInput" placeholder="Type your message...">
+                <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
                 <button id="sendBtn" onclick="sendMessage()">Send</button>
             </div>
         </div>
     </div>
-
+    
     <script>
         const responses = {
-            "deals": "🎉 Here are today's top deals! 🎊\n50% off on Electronics 🔥 Buy 1 Get 1 on Fashion 👗 Free shipping on orders over $50\n\nWould you like to \"Buy now\" or \"Add to cart\"?",
+            "deals": "🎉 Here are today's top deals! 🎊\n50% off on Electronics 🔥\nBuy 1 Get 1 on Fashion 👗\nFree shipping on orders over $50\n\nWould you like to Buy now or Add to cart?",
             "track": "📦 Let me help track your order!\nPlease enter your email address to proceed.",
             "order": "📦 Let me help track your order!\nPlease enter your email address to proceed.",
-            "help": "🎯 I can help you with: • deals - View today's offers • track order - Track your shipments • cart - Manage shopping cart • orders - View order history What would you like to do?",
-            "cart": "🛒 Your shopping cart is empty. Start shopping to add items!"
-                    // General conversation topics
-        'hello': '👋 Hi there! How can I assist you today? Feel free to ask me about products, track orders, or just chat!',
-        'hi': '😊 Hello! What\'s on your mind?',
-        'hey': '🙌 Hey! Great to meet you! What can I help with?',
-        'good morning': '☀️ Good morning! Hope you\'re having a great day!',
-        'good afternoon': '🌤️ Good afternoon! How can I help?',
-        'good evening': '🌙 Good evening! Let\'s chat!',
-        'how are you': '😄 I\'m doing great, thanks for asking! I\'m here to help you with anything you need.',
-        'what\'s up': '🎉 Not much! Just ready to help you out. What do you need?',
-        'thanks': '🙏 You\'re welcome! Happy to help anytime!',
-        'thank you': '😊 Thank you! I\'m glad I could assist.',
-        'welcome': '🎊 You\'re very welcome! Anything else I can help with?',
-        'bye': '👋 Goodbye! Thanks for chatting with me. Have a great day!',
-        'goodbye': '✋ See you later! Feel free to come back anytime!',
-        
-        // General knowledge & information
-        'weather': '🌤️ I don\'t have real-time weather data, but you can check a weather app for your location!',
-        'time': '⏰ For the current time, check your device. How else can I help?',
-        'date': '📅 You can check your device for today\'s date!',
-        'what is your name': '🤖 I\'m ShopBot, your AI-powered eCommerce assistant!',
-        'who are you': 'I\'m ShopBot! I help you with shopping, tracking orders, and general conversations.',
-        'tell me a joke': '😄 Why don\'t scientists trust atoms? Because they make up everything! 😆',
-        'fun': '🎮 Want to have fun? Shop with us! We have great deals and amazing products.',
-        
-        // Hobbies & Interests
-        'hobby': '🎯 Everyone has hobbies! Mine is helping customers find amazing products and providing great service!',
-        'gaming': '🎮 Gaming is fun! Check our electronics section for gaming gear and consoles!',
-        'movies': '🎬 Movies are great entertainment! We have tech gadgets perfect for movie nights!',
-        'music': '🎵 Music is wonderful! We carry audio equipment and speakers for music lovers!',
-        'sports': '⚽ Sports are exciting! We have sports gear and equipment available!',
-        'reading': '📚 Reading is awesome! Nothing to shop here, but I love a good conversation!',
-        'travel': '✈️ Travel is amazing! We have travel accessories and gadgets to make your trip better!',
-        
-        // Technology & Help
-        'help': '🤝 I can help you with: • Shopping & Deals • Order Tracking • Cart Management • Product Info • General Chat!',
-        'problem': '⚠️ Got a problem? Tell me more and I\'ll do my best to help you solve it!',
-        'issue': '🔧 Let me know what\'s going on, and I\'ll help you fix it!',
-        'tech': '💻 Technology is fascinating! Ask me about tech products we have!',
-        'computer': '💾 Computers are essential! We offer laptops, peripherals, and accessories!',
-        'phone': '📱 Phones are everywhere! Check out our mobile phone collection and accessories!',
-        'software': '⚙️ Software makes everything work! Interested in specific tech products?',
-        
-        // General questions & responses
-        'why': '🤔 That\'s a good question! Can you be more specific?',
-        'how': '💡 I\'m happy to explain! What exactly would you like to know?',
-        'when': '⏱️ Timing matters! Tell me what you\'re asking about and I can help!',
-        'where': '📍 Location depends on what you need! Are you looking for something specific?',
-        'what': '❓ Great question! Ask me about our products, services, or anything else!',
-        
-        // Positivity & Engagement
-        'awesome': '🎉 Absolutely! Everything is awesome when you\'re having a great shopping experience!',
-        'great': '⭐ Great to hear! Is there anything else I can help with?',
-        'good': '✨ Glad you think so! Can I assist you further?',
-        'cool': '❄️ Cool indeed! Any questions about our products?',
-        'love': '❤️ That\'s wonderful! Is there something specific you love about our service?',
-        'hate': '😔 Sorry to hear that! Let me know how I can make things better!',
-        'sad': '💙 I hope things get better! Is there anything I can help cheer you up?',
-        'happy': '😊 Your happiness matters! What can I do to make your day even better?'
-,
-        'unknown': '🤷 That\'s interesting! Tell me more and I\'ll try to help!'
-    };
+            "help": "🎯 I can help you with:\n• deals - View today's offers\n• track order - Track your shipments\n• cart - Manage shopping cart\n• orders - View order history\n\nWhat would you like to do?",
+            "cart": "🛒 Your shopping cart is empty. Start shopping to add items!",
+            "hello": "👋 Hi there! How can I assist you today? Feel free to ask me about products, track orders, or just chat!",
+            "hi": "😊 Hello! What's on your mind?",
+            "hey": "🙌 Hey! Great to meet you! What can I help with?",
+            "good morning": "☀️ Good morning! Hope you're having a great day!",
+            "good afternoon": "🌤️ Good afternoon! How can I help?",
+            "good evening": "🌙 Good evening! Let's chat!",
+            "how are you": "😄 I'm doing great, thanks for asking! I'm here to help you with anything you need.",
+            "what's up": "🎉 Not much! Just ready to help you out. What do you need?",
+            "thanks": "🙏 You're welcome! Happy to help anytime!",
+            "thank you": "😊 Thank you! I'm glad I could assist.",
+            "bye": "👋 Goodbye! Thanks for chatting with me. Have a great day!",
+            "electronics": "🔌 We have Premium Wireless Headphones ($129.99), USB-C Cables ($12.99), 4K Webcam ($79.99), Power Banks ($34.99)",
+            "headphones": "🎧 Premium Wireless Headphones - $129.99 (35% OFF) - High quality sound, noise cancellation, 20hr battery",
+            "price": "💰 All products have special discounts! Check our deals for up to 50% off",
+            "shipping": "🚚 Free shipping on orders over $50! Order now to save on delivery",
+            "discount": "🎉 We have amazing deals! 50% OFF Electronics, Buy 1 Get 1 on Fashion, Free shipping on $50+"
         };
 
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-
             if (message === '') return;
-
+            
             addMessage(message, 'user');
             input.value = '';
-
+            
             setTimeout(() => {
                 const lowerMessage = message.toLowerCase();
-                let response = 'II'm not quite sure what you mean, but I'm here to help! Try asking me about our products, tracking your order, or just chatting about anything you'd like!';
+                let response = "I'm here to help! Try asking me about deals, tracking orders, or anything else!";
                 
-        // AI-powered search functionality
-        const keywords = message.toLowerCase().split(/\s+/);
-        const database = {
-            'electronics': '🔌 We have Premium Wireless Headphones ($129.99), USB-C Cables ($12.99), 4K Webcam ($79.99), Power Banks ($34.99)',
-            'headphones': '🎧 Premium Wireless Headphones - $129.99 (35% OFF) - High quality sound, noise cancellation, 20hr battery',
-            'cable': '🔌 USB-C Fast Charging Cable - $12.99 (48% OFF) - Universal compatibility, durable design',
-            'webcam': '📷 4K Webcam - $79.99 (47% OFF) - Perfect for streaming and video calls',
-            'battery': '🔋 Power Bank 20000mAh - $34.99 (50% OFF) - Fast charging, compact design',
-            'keyboard': '⌨️ Mechanical Keyboard RGB - $89.99 (50% OFF) - Gaming grade, customizable backlighting',
-            'mouse': '🖱️ Wireless Mouse Pro - $44.99 (50% OFF) - Precision tracking, ergonomic design',
-            'lamp': '💡 LED Desk Lamp - $39.99 (50% OFF) - Adjustable brightness, eye care technology',
-            'stand': '📱 Phone Stand Adjustable - $9.99 (50% OFF) - Universal compatibility, stable base',
-            'price': '💰 All products have special discounts! Check our deals for up to 50% off',
-            'shipping': '🚚 Free shipping on orders over $50! Order now to save on delivery',
-            'discount': '🎉 We have amazing deals! 50% OFF Electronics, Buy 1 Get 1 on Fashion, Free shipping on $50+',
-        };
-
-        // Search database for matching keywords
-        for (let keyword of keywords) {
-            if (database[keyword]) {
-                response = '🔍 Found what you are looking for! ' + database[keyword];
-                break;
-            }
-        }
-                
+                // Search for matching keywords
                 for (let key in responses) {
                     if (lowerMessage.includes(key)) {
                         response = responses[key];
                         break;
                     }
                 }
-
+                
                 addMessage(response, 'bot');
             }, 500);
         }
-
+        
         function addMessage(text, sender) {
             const chatBox = document.getElementById('chatBox');
             const messageDiv = document.createElement('div');
@@ -419,24 +316,22 @@
             chatBox.appendChild(messageDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
-
+        
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
             }
         }
-
+        
         function chatWithBot() {
             document.getElementById('chatInput').focus();
             addMessage('Welcome! What can I help you with today?', 'bot');
         }
-
+        
         // Welcome message
         window.addEventListener('load', () => {
-            addMessage('👋 Tip: This bot is currently in EDIT mode. Not all features are published yet.', 'bot');
+            addMessage('👋 Welcome to ShopBot! Type a message to get started. Try: deals, help, track, or just say hello!', 'bot');
         });
-
-        document.getElementById('chatInput').addEventListener('keypress', handleKeyPress);
     </script>
 </body>
 </html>
