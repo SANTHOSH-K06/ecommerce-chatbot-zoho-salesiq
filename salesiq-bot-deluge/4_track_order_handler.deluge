@@ -1,0 +1,74 @@
+// Track Order Handler - Fetches order status from Shopify/WooCommerce
+// Email-based order lookup with shipping status
+
+function handleTrackOrderFlow() {
+    response = map();
+    
+    // Check if email already collected
+    if(userSession.get("track_order_email") == null) {
+        userSession.put("track_order_step", "collecting_email");
+        response.put("action", "reply");
+        response.put("text", "Enter your email to track your order:");
+        return response;
+    }
+    
+    // Fetch orders from Shopify
+    email = userSession.get("track_order_email");
+    shopifyStore = "your-store.myshopify.com";
+    token = "your_shopify_token";
+    
+    url = "https://" + shopifyStore + "/admin/api/2024-01/orders.json?email=" + email;
+    headers = map("X-Shopify-Access-Token", token);
+    
+    try {
+        apiResponse = invokeurl([url: url, type: "GET", headers: headers]);
+        orders = apiResponse.get("orders");
+        
+        if(orders == null || orders.size() == 0) {
+            response.put("action", "reply");
+            response.put("text", "No orders found for this email.");
+            return response;
+        }
+        
+        // Filter and display shipped orders
+        shippedOrders = list();
+        for each order in orders {
+            if(order.get("fulfillment_status") == "fulfilled" || order.get("fulfillment_status") == "partial") {
+                orderInfo = map();
+                orderInfo.put("order_number", order.get("order_number"));
+                orderInfo.put("total_price", order.get("total_price"));
+                orderInfo.put("status", order.get("fulfillment_status"));
+                orderInfo.put("created_date", order.get("created_at"));
+                shippedOrders.add(orderInfo);
+            }
+        }
+        
+        if(shippedOrders.size() == 0) {
+            response.put("action", "reply");
+            response.put("text", "You have no shipped orders yet.");
+            return response;
+        }
+        
+        suggestions = list();
+        for each order in shippedOrders {
+            suggestion = "Order #" + order.get("order_number") + " - $" + order.get("total_price") + " (" + order.get("status") + ")";
+            suggestions.add(suggestion);
+        }
+        
+        response.put("action", "reply");
+        response.put("text", "Your shipped orders:");
+        response.put("suggestions", suggestions);
+        
+    } catch(exception e) {
+        logError("Order tracking failed", e);
+        response.put("action", "reply");
+        response.put("text", "Error fetching orders. Please try again.");
+    }
+    
+    return response;
+}
+
+function collectTrackingEmail(email) {
+    userSession.put("track_order_email", email);
+    userSession.put("track_order_step", "email_collected");
+}
