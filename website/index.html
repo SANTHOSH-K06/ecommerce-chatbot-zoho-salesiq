@@ -299,6 +299,67 @@
             "order": "📦 Let me help track your order!\nPlease enter your email address to proceed.",
             "help": "🎯 I can help you with: • deals - View today's offers • track order - Track your shipments • cart - Manage shopping cart • orders - View order history What would you like to do?",
             "cart": "🛒 Your shopping cart is empty. Start shopping to add items!"
+                    // General conversation topics
+        'hello': '👋 Hi there! How can I assist you today? Feel free to ask me about products, track orders, or just chat!',
+        'hi': '😊 Hello! What\'s on your mind?',
+        'hey': '🙌 Hey! Great to meet you! What can I help with?',
+        'good morning': '☀️ Good morning! Hope you\'re having a great day!',
+        'good afternoon': '🌤️ Good afternoon! How can I help?',
+        'good evening': '🌙 Good evening! Let\'s chat!',
+        'how are you': '😄 I\'m doing great, thanks for asking! I\'m here to help you with anything you need.',
+        'what\'s up': '🎉 Not much! Just ready to help you out. What do you need?',
+        'thanks': '🙏 You\'re welcome! Happy to help anytime!',
+        'thank you': '😊 Thank you! I\'m glad I could assist.',
+        'welcome': '🎊 You\'re very welcome! Anything else I can help with?',
+        'bye': '👋 Goodbye! Thanks for chatting with me. Have a great day!',
+        'goodbye': '✋ See you later! Feel free to come back anytime!',
+        
+        // General knowledge & information
+        'weather': '🌤️ I don\'t have real-time weather data, but you can check a weather app for your location!',
+        'time': '⏰ For the current time, check your device. How else can I help?',
+        'date': '📅 You can check your device for today\'s date!',
+        'what is your name': '🤖 I\'m ShopBot, your AI-powered eCommerce assistant!',
+        'who are you': 'I\'m ShopBot! I help you with shopping, tracking orders, and general conversations.',
+        'tell me a joke': '😄 Why don\'t scientists trust atoms? Because they make up everything! 😆',
+        'fun': '🎮 Want to have fun? Shop with us! We have great deals and amazing products.',
+        
+        // Hobbies & Interests
+        'hobby': '🎯 Everyone has hobbies! Mine is helping customers find amazing products and providing great service!',
+        'gaming': '🎮 Gaming is fun! Check our electronics section for gaming gear and consoles!',
+        'movies': '🎬 Movies are great entertainment! We have tech gadgets perfect for movie nights!',
+        'music': '🎵 Music is wonderful! We carry audio equipment and speakers for music lovers!',
+        'sports': '⚽ Sports are exciting! We have sports gear and equipment available!',
+        'reading': '📚 Reading is awesome! Nothing to shop here, but I love a good conversation!',
+        'travel': '✈️ Travel is amazing! We have travel accessories and gadgets to make your trip better!',
+        
+        // Technology & Help
+        'help': '🤝 I can help you with: • Shopping & Deals • Order Tracking • Cart Management • Product Info • General Chat!',
+        'problem': '⚠️ Got a problem? Tell me more and I\'ll do my best to help you solve it!',
+        'issue': '🔧 Let me know what\'s going on, and I\'ll help you fix it!',
+        'tech': '💻 Technology is fascinating! Ask me about tech products we have!',
+        'computer': '💾 Computers are essential! We offer laptops, peripherals, and accessories!',
+        'phone': '📱 Phones are everywhere! Check out our mobile phone collection and accessories!',
+        'software': '⚙️ Software makes everything work! Interested in specific tech products?',
+        
+        // General questions & responses
+        'why': '🤔 That\'s a good question! Can you be more specific?',
+        'how': '💡 I\'m happy to explain! What exactly would you like to know?',
+        'when': '⏱️ Timing matters! Tell me what you\'re asking about and I can help!',
+        'where': '📍 Location depends on what you need! Are you looking for something specific?',
+        'what': '❓ Great question! Ask me about our products, services, or anything else!',
+        
+        // Positivity & Engagement
+        'awesome': '🎉 Absolutely! Everything is awesome when you\'re having a great shopping experience!',
+        'great': '⭐ Great to hear! Is there anything else I can help with?',
+        'good': '✨ Glad you think so! Can I assist you further?',
+        'cool': '❄️ Cool indeed! Any questions about our products?',
+        'love': '❤️ That\'s wonderful! Is there something specific you love about our service?',
+        'hate': '😔 Sorry to hear that! Let me know how I can make things better!',
+        'sad': '💙 I hope things get better! Is there anything I can help cheer you up?',
+        'happy': '😊 Your happiness matters! What can I do to make your day even better?'
+,
+        'unknown': '🤷 That\'s interesting! Tell me more and I\'ll try to help!'
+    };
         };
 
         function sendMessage() {
@@ -312,7 +373,7 @@
 
             setTimeout(() => {
                 const lowerMessage = message.toLowerCase();
-                let response = 'I didn\'t understand that. Try saying: "deals", "track order", "help"';
+                let response = 'II'm not quite sure what you mean, but I'm here to help! Try asking me about our products, tracking your order, or just chatting about anything you'd like!';
                 
         // AI-powered search functionality
         const keywords = message.toLowerCase().split(/\s+/);
