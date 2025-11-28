@@ -1,0 +1,12 @@
+// AI Engine - Fallback responses and intent detection
+function handleAIFallback(userText) {
+    response = map();
+    if(userText.contains("help") || userText.contains("support")) {
+        response.put("action", "reply");
+        response.put("text", "I can help with deals, orders, cart, and verification!");
+    } else {
+        response.put("action", "reply");
+        response.put("text", "Sorry, try asking about deals or orders!");
+    }
+    return response;
+}
