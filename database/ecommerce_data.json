@@ -1,0 +1,205 @@
+{
+  "products": [
+    {
+      "id": "PROD001",
+      "name": "Premium Wireless Headphones",
+      "category": "Electronics",
+      "price": 129.99,
+      "original_price": 199.99,
+      "discount_percentage": 35,
+      "description": "High-quality wireless headphones with noise cancellation",
+      "stock": 45,
+      "rating": 4.7,
+      "reviews": 328,
+      "image": "https://via.placeholder.com/300?text=Headphones",
+      "seller": "TechStore"
+    },
+    {
+      "id": "PROD002",
+      "name": "USB-C Fast Charging Cable",
+      "category": "Accessories",
+      "price": 12.99,
+      "original_price": 24.99,
+      "discount_percentage": 48,
+      "description": "3m USB-C cable with 100W fast charging support",
+      "stock": 234,
+      "rating": 4.5,
+      "reviews": 1245,
+      "image": "https://via.placeholder.com/300?text=Cable",
+      "seller": "ElectroMart"
+    },
+    {
+      "id": "PROD003",
+      "name": "4K Webcam",
+      "category": "Electronics",
+      "price": 79.99,
+      "original_price": 149.99,
+      "discount_percentage": 47,
+      "description": "Professional 4K webcam with auto-focus and built-in microphone",
+      "stock": 28,
+      "rating": 4.6,
+      "reviews": 567,
+      "image": "https://via.placeholder.com/300?text=Webcam",
+      "seller": "TechPro"
+    },
+    {
+      "id": "PROD004",
+      "name": "Portable Power Bank 20000mAh",
+      "category": "Accessories",
+      "price": 34.99,
+      "original_price": 69.99,
+      "discount_percentage": 50,
+      "description": "Fast charging power bank with dual USB ports",
+      "stock": 156,
+      "rating": 4.4,
+      "reviews": 892,
+      "image": "https://via.placeholder.com/300?text=PowerBank",
+      "seller": "ChargeHub"
+    },
+    {
+      "id": "PROD005",
+      "name": "LED Desk Lamp",
+      "category": "Home Office",
+      "price": 39.99,
+      "original_price": 79.99,
+      "discount_percentage": 50,
+      "description": "Adjustable LED desk lamp with USB charging port",
+      "stock": 67,
+      "rating": 4.8,
+      "reviews": 445,
+      "image": "https://via.placeholder.com/300?text=DeskLamp",
+      "seller": "LightingPro"
+    },
+    {
+      "id": "PROD006",
+      "name": "Mechanical Keyboard RGB",
+      "category": "Computer Peripherals",
+      "price": 89.99,
+      "original_price": 179.99,
+      "discount_percentage": 50,
+      "description": "Mechanical gaming keyboard with RGB backlighting",
+      "stock": 34,
+      "rating": 4.7,
+      "reviews": 623,
+      "image": "https://via.placeholder.com/300?text=Keyboard",
+      "seller": "GamingGear"
+    },
+    {
+      "id": "PROD007",
+      "name": "Wireless Mouse Pro",
+      "category": "Computer Peripherals",
+      "price": 44.99,
+      "original_price": 89.99,
+      "discount_percentage": 50,
+      "description": "Precision wireless mouse with 6 programmable buttons",
+      "stock": 89,
+      "rating": 4.6,
+      "reviews": 734,
+      "image": "https://via.placeholder.com/300?text=Mouse",
+      "seller": "PeripheralPro"
+    },
+    {
+      "id": "PROD008",
+      "name": "Phone Stand Adjustable",
+      "category": "Accessories",
+      "price": 9.99,
+      "original_price": 19.99,
+      "discount_percentage": 50,
+      "description": "Universal adjustable phone stand for all devices",
+      "stock": 234,
+      "rating": 4.5,
+      "reviews": 892,
+      "image": "https://via.placeholder.com/300?text=PhoneStand",
+      "seller": "AccessoryHub"
+    }
+  ],
+  "deals": [
+    {
+      "deal_id": "DEAL001",
+      "title": "50% OFF - Premium Electronics",
+      "description": "Huge discount on all wireless headphones and USB cables",
+      "products": ["PROD001", "PROD002"],
+      "discount_percentage": 50,
+      "valid_from": "2025-11-28",
+      "valid_until": "2025-12-05",
+      "featured": true,
+      "priority": 1
+    },
+    {
+      "deal_id": "DEAL002",
+      "title": "Flash Sale - Home Office Essentials",
+      "description": "Limited time offers on desk lamps and keyboards",
+      "products": ["PROD005", "PROD006"],
+      "discount_percentage": 45,
+      "valid_from": "2025-11-28",
+      "valid_until": "2025-11-30",
+      "featured": true,
+      "priority": 2
+    },
+    {
+      "deal_id": "DEAL003",
+      "title": "Buy 2 Get 1 Free - Accessories",
+      "description": "Purchase any 2 accessories and get 1 free item",
+      "products": ["PROD002", "PROD004", "PROD007", "PROD008"],
+      "discount_percentage": 33,
+      "valid_from": "2025-11-28",
+      "valid_until": "2025-12-10",
+      "featured": false,
+      "priority": 3
+    }
+  ],
+  "users": [
+    {
+      "user_id": "USR001",
+      "email": "john.doe@example.com",
+      "name": "John Doe",
+      "phone": "+1-234-567-8900",
+      "registration_date": "2025-06-15",
+      "total_orders": 12,
+      "total_spent": 1245.50,
+      "loyalty_points": 3450
+    },
+    {
+      "user_id": "USR002",
+      "email": "jane.smith@example.com",
+      "name": "Jane Smith",
+      "phone": "+1-234-567-8901",
+      "registration_date": "2025-07-22",
+      "total_orders": 8,
+      "total_spent": 892.75,
+      "loyalty_points": 2340
+    }
+  ],
+  "orders": [
+    {
+      "order_id": "ORD001",
+      "user_id": "USR001",
+      "items": [{"product_id": "PROD001", "quantity": 1, "price": 129.99}],
+      "total_amount": 129.99,
+      "status": "Shipped",
+      "tracking_number": "TRK123456789",
+      "order_date": "2025-11-20",
+      "delivery_date": "2025-11-27"
+    },
+    {
+      "order_id": "ORD002",
+      "user_id": "USR001",
+      "items": [{"product_id": "PROD002", "quantity": 2, "price": 12.99}],
+      "total_amount": 25.98,
+      "status": "Delivered",
+      "tracking_number": "TRK123456790",
+      "order_date": "2025-11-15",
+      "delivery_date": "2025-11-22"
+    },
+    {
+      "order_id": "ORD003",
+      "user_id": "USR002",
+      "items": [{"product_id": "PROD005", "quantity": 1, "price": 39.99}],
+      "total_amount": 39.99,
+      "status": "In Transit",
+      "tracking_number": "TRK123456791",
+      "order_date": "2025-11-25",
+      "estimated_delivery": "2025-12-02"
+    }
+  ]
+}
