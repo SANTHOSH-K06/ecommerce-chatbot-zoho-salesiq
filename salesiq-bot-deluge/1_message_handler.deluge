@@ -1,0 +1,80 @@
+// Main Message Handler - Routes user intents to appropriate handlers
+// Detects intent from user message and calls the correct flow
+
+function processMessage() {
+    incomingMessage = message.get("text").toString().toLower();
+    intent = detectIntent(incomingMessage);
+    
+    if(intent == "welcome") {
+        return showWelcomeMenu();
+    }
+    else if(intent == "deals") {
+        return handleDealsFlow();
+    }
+    else if(intent == "track_order") {
+        return handleTrackOrderFlow();
+    }
+    else if(intent == "view_cart") {
+        return handleViewCart();
+    }
+    else if(intent == "add_to_cart") {
+        return handleAddToCart(incomingMessage);
+    }
+    else if(intent == "verify_otp") {
+        return handleOTPVerification();
+    }
+    else {
+        return handleAIFallback(incomingMessage);
+    }
+}
+
+function detectIntent(text) {
+    if(text.contains("hi") || text.contains("hello") || text.contains("start")) {
+        return "welcome";
+    }
+    else if(text.contains("deal") || text.contains("offer") || text.contains("discount")) {
+        return "deals";
+    }
+    else if(text.contains("track") || text.contains("order") || text.contains("status")) {
+        return "track_order";
+    }
+    else if(text.contains("cart") || text.contains("items")) {
+        return "view_cart";
+    }
+    else if(text.contains("add") && text.contains("cart")) {
+        return "add_to_cart";
+    }
+    else if(text.contains("verify") || text.contains("otp")) {
+        return "verify_otp";
+    }
+    return "unknown";
+}
+
+function showWelcomeMenu() {
+    response = map();
+    response.put("action", "reply");
+    response.put("text", "Welcome to ShopBot! 🛒 How can I help you today?");
+    suggestions = list("View Deals", "Track Order", "View Cart", "Help");
+    response.put("suggestions", suggestions);
+    return response;
+}
+
+function handleViewCart() {
+    response = map();
+    cart = userSession.get("cart");
+    if(cart == null || cart.size() == 0) {
+        response.put("action", "reply");
+        response.put("text", "Your cart is empty. View our deals!");
+    } else {
+        response.put("action", "reply");
+        response.put("text", "Your cart has " + cart.size() + " items.");
+    }
+    return response;
+}
+
+function handleAddToCart(message) {
+    response = map();
+    response.put("action", "reply");
+    response.put("text", "Item added to cart successfully!");
+    return response;
+}
