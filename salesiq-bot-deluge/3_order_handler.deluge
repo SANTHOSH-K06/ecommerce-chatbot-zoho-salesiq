@@ -1,0 +1,74 @@
+// Order Handler - Creates orders in Shopify/WooCommerce
+// Handles checkout process and order creation
+
+function handleOrderCreation(productData) {
+    response = map();
+    
+    // Check if customer info is collected
+    if(userSession.get("customer_email") == null) {
+        userSession.put("step", "collecting_email");
+        response.put("action", "reply");
+        response.put("text", "Please enter your email address:");
+        return response;
+    }
+    
+    // Proceed with order creation
+    customerEmail = userSession.get("customer_email");
+    customerPhone = userSession.get("customer_phone");
+    
+    shopifyStore = "your-store.myshopify.com";
+    accessToken = "your_shopify_token";
+    
+    orderData = map();
+    orderData.put("line_items", list(productData));
+    orderData.put("email", customerEmail);
+    orderData.put("phone", customerPhone);
+    
+    url = "https://" + shopifyStore + "/admin/api/2024-01/orders.json";
+    headers = map("X-Shopify-Access-Token", accessToken, "Content-Type", "application/json");
+    
+    try {
+        apiResponse = invokeurl([
+            url: url,
+            type: "POST",
+            headers: headers,
+            parameters: orderData
+        ]);
+        
+        orderId = apiResponse.get("order").get("id");
+        
+        // Save to session and commit to GitHub
+        userSession.put("last_order_id", orderId);
+        commitOrderToGitHub(orderData);
+        
+        response.put("action", "reply");
+        response.put("text", "Order created successfully! Order ID: #" + orderId);
+        
+    } catch(exception e) {
+        logError("Order creation failed", e);
+        response.put("action", "reply");
+        response.put("text", "Error creating order. Please try again.");
+    }
+    
+    return response;
+}
+
+function collectCustomerInfo(message) {
+    response = map();
+    currentStep = userSession.get("step");
+    
+    if(currentStep == "collecting_email") {
+        userSession.put("customer_email", message);
+        userSession.put("step", "collecting_phone");
+        response.put("action", "reply");
+        response.put("text", "Thanks! Now enter your phone number:");
+    }
+    else if(currentStep == "collecting_phone") {
+        userSession.put("customer_phone", message);
+        userSession.put("step", "order_ready");
+        response.put("action", "reply");
+        response.put("text", "Perfect! Your order is ready to be placed.");
+    }
+    
+    return response;
+}
