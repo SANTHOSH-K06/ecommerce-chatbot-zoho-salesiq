@@ -1,0 +1,40 @@
+// GitHub API Integration - Auto-commit order data
+// Commits order transactions to GitHub for CI/CD pipeline
+
+function commitOrderToGitHub(orderData) {
+    gitHubToken = "your_github_token";
+    repo = "SANTHOSH-K06/ecommerce-chatbot-zoho-salesiq";
+    
+    url = "https://api.github.com/repos/" + repo + "/contents/orders/" + orderData.get("order_id") + ".json";
+    
+    content = encode(orderData.toString(), "base64");
+    
+    payload = map();
+    payload.put("message", "Add order #" + orderData.get("order_id") + " from bot");
+    payload.put("content", content);
+    
+    headers = map(
+        "Authorization", "token " + gitHubToken,
+        "Content-Type", "application/json"
+    );
+    
+    try {
+        invokeurl([
+            url: url,
+            type: "PUT",
+            headers: headers,
+            parameters: payload
+        ]);
+        return true;
+    }
+    catch(exception e) {
+        logError("GitHub commit failed", e);
+        return false;
+    }
+}
+
+function logError(message, error) {
+    // Log error to console/debugging system
+    errorLog = message + ": " + error;
+    // In production, send to logging service
+}
