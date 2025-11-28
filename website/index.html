@@ -314,6 +314,31 @@
                 const lowerMessage = message.toLowerCase();
                 let response = 'I didn\'t understand that. Try saying: "deals", "track order", "help"';
                 
+        // AI-powered search functionality
+        const keywords = message.toLowerCase().split(/\s+/);
+        const database = {
+            'electronics': '🔌 We have Premium Wireless Headphones ($129.99), USB-C Cables ($12.99), 4K Webcam ($79.99), Power Banks ($34.99)',
+            'headphones': '🎧 Premium Wireless Headphones - $129.99 (35% OFF) - High quality sound, noise cancellation, 20hr battery',
+            'cable': '🔌 USB-C Fast Charging Cable - $12.99 (48% OFF) - Universal compatibility, durable design',
+            'webcam': '📷 4K Webcam - $79.99 (47% OFF) - Perfect for streaming and video calls',
+            'battery': '🔋 Power Bank 20000mAh - $34.99 (50% OFF) - Fast charging, compact design',
+            'keyboard': '⌨️ Mechanical Keyboard RGB - $89.99 (50% OFF) - Gaming grade, customizable backlighting',
+            'mouse': '🖱️ Wireless Mouse Pro - $44.99 (50% OFF) - Precision tracking, ergonomic design',
+            'lamp': '💡 LED Desk Lamp - $39.99 (50% OFF) - Adjustable brightness, eye care technology',
+            'stand': '📱 Phone Stand Adjustable - $9.99 (50% OFF) - Universal compatibility, stable base',
+            'price': '💰 All products have special discounts! Check our deals for up to 50% off',
+            'shipping': '🚚 Free shipping on orders over $50! Order now to save on delivery',
+            'discount': '🎉 We have amazing deals! 50% OFF Electronics, Buy 1 Get 1 on Fashion, Free shipping on $50+',
+        };
+
+        // Search database for matching keywords
+        for (let keyword of keywords) {
+            if (database[keyword]) {
+                response = '🔍 Found what you are looking for! ' + database[keyword];
+                break;
+            }
+        }
+                
                 for (let key in responses) {
                     if (lowerMessage.includes(key)) {
                         response = responses[key];
