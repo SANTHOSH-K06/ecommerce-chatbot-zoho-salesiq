@@ -1,0 +1,93 @@
+// OTP Verification Handler - Twilio SMS-based phone verification
+// Sends OTP code and verifies customer phone number
+
+function handleOTPVerification() {
+    response = map();
+    
+    // Check if phone number collected
+    if(userSession.get("customer_phone") == null) {
+        userSession.put("otp_step", "collecting_phone");
+        response.put("action", "reply");
+        response.put("text", "Enter your phone number for OTP verification (with country code, e.g., +1234567890):");
+        return response;
+    }
+    
+    phoneNumber = userSession.get("customer_phone");
+    otpSuccess = sendOTP(phoneNumber);
+    
+    if(otpSuccess) {
+        userSession.put("otp_step", "verifying");
+        response.put("action", "reply");
+        response.put("text", "OTP sent! Enter the 6-digit code to verify:");
+    } else {
+        response.put("action", "reply");
+        response.put("text", "Failed to send OTP. Please try again.");
+    }
+    
+    return response;
+}
+
+function sendOTP(phoneNumber) {
+    // Generate random 6-digit OTP
+    otp = randomNumber(100000, 999999).toString();
+    
+    // Twilio configuration
+    twilioAccountSID = "your_twilio_account_sid";
+    twilioAuthToken = "your_twilio_auth_token";
+    twilioFromNumber = "+1234567890"; // Your Twilio phone number
+    
+    url = "https://api.twilio.com/2010-04-01/Accounts/" + twilioAccountSID + "/Messages.json";
+    
+    // Basic Auth encoding
+    authString = twilioAccountSID + ":" + twilioAuthToken;
+    encodedAuth = encode(authString, "base64");
+    
+    headers = map("Authorization", "Basic " + encodedAuth);
+    
+    params = map();
+    params.put("From", twilioFromNumber);
+    params.put("To", phoneNumber);
+    params.put("Body", "Your ShopBot OTP code is: " + otp + ". Valid for 5 minutes.");
+    
+    try {
+        invokeurl([url: url, type: "POST", headers: headers, parameters: params]);
+        
+        // Store OTP in session
+        userSession.put("otp_code", otp);
+        userSession.put("otp_timestamp", system.currentTimeMillis());
+        userSession.put("phone_verified", false);
+        
+        return true;
+    }
+    catch(exception e) {
+        logError("OTP send failed", e);
+        return false;
+    }
+}
+
+function verifyOTP(userOTP) {
+    response = map();
+    
+    storedOTP = userSession.get("otp_code");
+    otpTimestamp = userSession.get("otp_timestamp");
+    currentTime = system.currentTimeMillis();
+    
+    // OTP valid for 5 minutes (300000 milliseconds)
+    if((currentTime - otpTimestamp) > 300000) {
+        response.put("success", false);
+        response.put("message", "OTP expired. Request a new one.");
+        return response;
+    }
+    
+    if(userOTP == storedOTP) {
+        userSession.put("phone_verified", true);
+        userSession.put("otp_step", "verified");
+        response.put("success", true);
+        response.put("message", "Phone verified successfully!");
+    } else {
+        response.put("success", false);
+        response.put("message", "Invalid OTP. Please try again.");
+    }
+    
+    return response;
+}
