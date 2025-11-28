@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopBot - eCommerce Chatbot by Zoho SalesIQ</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000000;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
+
         .container {
             max-width: 1200px;
             width: 100%;
@@ -23,181 +29,220 @@
             gap: 40px;
             align-items: center;
         }
+
         .left-section h1 {
-            color: white;
+            color: #000000;
             font-size: 3.5rem;
             margin-bottom: 20px;
             line-height: 1.2;
         }
+
         .left-section p {
-            color: rgba(255, 255, 255, 0.9);
+            color: #333333;
             font-size: 1.1rem;
             margin-bottom: 30px;
             line-height: 1.6;
         }
+
         .features {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 30px;
         }
+
         .feature {
             display: flex;
             align-items: center;
             gap: 15px;
-            color: white;
+            color: #333333;
             font-size: 1rem;
         }
+
         .feature-icon {
             font-size: 1.5rem;
         }
-        .btn-group {
+
+        .buttons {
             display: flex;
             gap: 15px;
-            flex-wrap: wrap;
+            margin-bottom: 20px;
         }
-        .btn {
+
+        button {
             padding: 12px 30px;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             font-size: 1rem;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .btn-primary {
-            background: white;
-            color: #667eea;
+            background: #000000;
+            color: white;
+            border: 2px solid #000000;
         }
+
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+
         .btn-secondary {
-            border: 2px solid white;
-            color: white;
             background: transparent;
+            color: #000000;
+            border: 2px solid #000000;
         }
+
         .btn-secondary:hover {
-            background: white;
-            color: #667eea;
+            background: #000000;
+            color: white;
+            transform: translateY(-2px);
         }
+
+        .status-badge {
+            display: inline-block;
+            background: #FF6B35;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         .right-section {
             background: white;
             border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-        .chat-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        .chat-header h3 {
-            color: #667eea;
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-        .chat-header p {
-            color: #999;
-            font-size: 0.9rem;
-        }
-        .chat-box {
-            height: 400px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-        }
-        .message {
-            margin-bottom: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             display: flex;
-            animation: fadeIn 0.3s ease;
+            flex-direction: column;
+            height: 500px;
+            padding: 20px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .chat-header {
+            color: #000000;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
         }
+
+        .chat-subheader {
+            color: #666666;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        #chatBox {
+            flex: 1;
+            overflow-y: auto;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
         .message.bot {
-            justify-content: flex-start;
+            text-align: left;
         }
+
         .message.user {
-            justify-content: flex-end;
+            text-align: right;
         }
+
         .message-content {
+            display: inline-block;
             max-width: 70%;
             padding: 10px 15px;
             border-radius: 10px;
-            word-wrap: break-word;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
+
         .message.bot .message-content {
-            background: #e8e8e8;
-            color: #333;
+            background: #e0e0e0;
+            color: #000000;
         }
+
         .message.user .message-content {
-            background: #667eea;
+            background: #4169E1;
             color: white;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .input-group {
             display: flex;
             gap: 10px;
+            margin-bottom: 10px;
         }
-        .chat-input {
+
+        #chatInput {
             flex: 1;
             padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border: 1px solid #cccccc;
+            border-radius: 25px;
             font-size: 0.95rem;
-            font-family: inherit;
-        }
-        .chat-input:focus {
             outline: none;
-            border-color: #667eea;
         }
-        .send-btn {
+
+        #chatInput:focus {
+            border-color: #000000;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #sendBtn {
             padding: 12px 25px;
-            background: #667eea;
+            background: #4169E1;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s ease;
+            font-weight: bold;
+            transition: background 0.3s;
         }
-        .send-btn:hover {
-            background: #764ba2;
+
+        #sendBtn:hover {
+            background: #315AC1;
         }
-        .status-badge {
-            display: inline-block;
-            background: #4CAF50;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-top: 10px;
-        }
-        .status-badge.editing {
-            background: #ff9800;
-        }
+
         @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
+
             .left-section h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
-            .chat-box {
-                height: 300px;
+
+            .right-section {
+                height: 400px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Left Section -->
         <div class="left-section">
             <h1>Meet ShopBot</h1>
             <p>Your AI-powered eCommerce assistant powered by Zoho SalesIQ. Get deals, track orders, and shop smarter.</p>
@@ -224,65 +269,50 @@
                     <span>AI-powered recommendations</span>
                 </div>
             </div>
-            
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="chatWithBot()">Try Now</button>
-                <a href="#" class="btn btn-secondary">Learn More</a>
+
+            <div class="buttons">
+                <button class="btn-primary" onclick="chatWithBot()">Try Now</button>
+                <button class="btn-secondary">Learn More</button>
             </div>
-            
-            <div class="status-badge editing">🔧 Bot in Edit Mode - Not Published</div>
+
+            <div class="status-badge">🔧 Bot in Edit Mode - Not Published</div>
         </div>
-        
+
+        <!-- Right Section -->
         <div class="right-section">
-            <div class="chat-header">
-                <h3>ShopBot Live Chat</h3>
-                <p>Chat powered by Zoho SalesIQ</p>
-            </div>
+            <div class="chat-header">ShopBot Live Chat</div>
+            <div class="chat-subheader">Chat powered by Zoho SalesIQ</div>
             
-            <div class="chat-box" id="chatBox">
-                <div class="message bot">
-                    <div class="message-content">👋 Hi! I'm ShopBot. How can I help you today?</div>
-                </div>
-                <div class="message bot">
-                    <div class="message-content">Try saying: deals, track order, help</div>
-                </div>
-            </div>
+            <div id="chatBox"></div>
             
             <div class="input-group">
-                <input 
-                    type="text" 
-                    class="chat-input" 
-                    id="chatInput" 
-                    placeholder="Type your message..."
-                    onkeypress="handleKeyPress(event)"
-                >
-                <button class="send-btn" onclick="sendMessage()">Send</button>
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button id="sendBtn" onclick="sendMessage()">Send</button>
             </div>
         </div>
     </div>
-    
+
     <script>
         const responses = {
-            'deals': '🎉 Here are today\'s top deals!\n✨ 50% off on Electronics\n✨ Buy 1 Get 1 on Fashion\n✨ Free shipping on orders over $50\n\nWould you like to "Buy now" or "Add to cart"?',
-            'track': '📦 Let me help track your order!\nPlease enter your email address to proceed.',
-            'help': '🆘 I can help you with:\n• deals - View today\'s offers\n• track order - Track your shipments\n• cart - Manage shopping cart\n• orders - View order history\n\nWhat would you like to do?',
-            'order': '✅ Order details:\n📍 Status: Shipped\n🚚 Delivery: In 2-3 days\n💳 Total: $99.99\n\nNeed to return? Click "Return Item"',
+            "deals": "🎉 Here are today's top deals! 🎊\n50% off on Electronics 🔥 Buy 1 Get 1 on Fashion 👗 Free shipping on orders over $50\n\nWould you like to \"Buy now\" or \"Add to cart\"?",
+            "track": "📦 Let me help track your order!\nPlease enter your email address to proceed.",
+            "order": "📦 Let me help track your order!\nPlease enter your email address to proceed.",
+            "help": "🎯 I can help you with: • deals - View today's offers • track order - Track your shipments • cart - Manage shopping cart • orders - View order history What would you like to do?",
+            "cart": "🛒 Your shopping cart is empty. Start shopping to add items!"
         };
-        
+
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-            
+
             if (message === '') return;
-            
-            // Add user message
+
             addMessage(message, 'user');
             input.value = '';
-            
-            // Simulate bot response
+
             setTimeout(() => {
                 const lowerMessage = message.toLowerCase();
-                let response = 'I didn\'t understand that. Try "deals", "track", or "help"!';
+                let response = 'I didn\'t understand that. Try saying: "deals", "track order", "help"';
                 
                 for (let key in responses) {
                     if (lowerMessage.includes(key)) {
@@ -290,11 +320,11 @@
                         break;
                     }
                 }
-                
+
                 addMessage(response, 'bot');
             }, 500);
         }
-        
+
         function addMessage(text, sender) {
             const chatBox = document.getElementById('chatBox');
             const messageDiv = document.createElement('div');
@@ -303,22 +333,24 @@
             chatBox.appendChild(messageDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
-        
+
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
             }
         }
-        
+
         function chatWithBot() {
             document.getElementById('chatInput').focus();
             addMessage('Welcome! What can I help you with today?', 'bot');
         }
-        
+
         // Welcome message
         window.addEventListener('load', () => {
-            addMessage('💡 Tip: This bot is currently in EDIT mode. Not all features are published yet.', 'bot');
+            addMessage('👋 Tip: This bot is currently in EDIT mode. Not all features are published yet.', 'bot');
         });
+
+        document.getElementById('chatInput').addEventListener('keypress', handleKeyPress);
     </script>
 </body>
 </html>
