@@ -1,0 +1,79 @@
+// Deals Handler - Fetches and displays deals from Google Sheets
+// Shows carousel cards with Buy Now and Add to Cart buttons
+
+function handleDealsFlow() {
+    deals = fetchDealsFromSheet();
+    if(deals == null || deals.size() == 0) {
+        response = map();
+        response.put("action", "reply");
+        response.put("text", "No deals available right now. Check back later!");
+        return response;
+    }
+    
+    cards = list();
+    for each deal in deals {
+        card = map();
+        card.put("title", deal.get("product_name"));
+        
+        originalPrice = deal.get("original_price");
+        dealPrice = deal.get("deal_price");
+        card.put("subtitle", "$" + originalPrice + " → $" + dealPrice);
+        card.put("image_url", deal.get("image_url"));
+        
+        buttons = list();
+        
+        buyButton = map();
+        buyButton.put("label", "Buy Now");
+        buyButton.put("action", "postback");
+        buyButton.put("value", "buy_" + deal.get("product_id"));
+        buttons.add(buyButton);
+        
+        cartButton = map();
+        cartButton.put("label", "Add to Cart");
+        cartButton.put("action", "postback");
+        cartButton.put("value", "cart_" + deal.get("product_id"));
+        buttons.add(cartButton);
+        
+        card.put("buttons", buttons);
+        cards.add(card);
+    }
+    
+    response = map();
+    response.put("action", "show_cards");
+    response.put("cards", cards);
+    return response;
+}
+
+function fetchDealsFromSheet() {
+    // Configuration from config.deluge
+    sheetId = "YOUR_GOOGLE_SHEET_ID";
+    apiKey = "YOUR_GOOGLE_SHEETS_API_KEY";
+    sheetName = "Deals";
+    
+    url = "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + "/values/" + sheetName + "?key=" + apiKey;
+    
+    try {
+        response = invokeurl([url: url, type: "GET"]);
+        rows = response.get("values");
+        
+        deals = list();
+        // Skip header row
+        for(i = 1; i < rows.size(); i++) {
+            row = rows.get(i);
+            deal = map();
+            deal.put("product_id", row.get(0));
+            deal.put("product_name", row.get(1));
+            deal.put("original_price", row.get(2));
+            deal.put("deal_price", row.get(3));
+            deal.put("image_url", row.get(4));
+            deal.put("category", row.get(5));
+            deals.add(deal);
+        }
+        
+        return deals;
+    }
+    catch(exception e) {
+        logError("Error fetching deals from Google Sheets", e);
+        return null;
+    }
+}
