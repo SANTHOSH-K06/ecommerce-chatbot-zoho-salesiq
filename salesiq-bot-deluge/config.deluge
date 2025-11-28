@@ -1,0 +1,165 @@
+// ============================================================================
+// eCOMMERCE CHATBOT - GLOBAL CONFIGURATION
+// Platform: Zoho SalesIQ
+// Language: Deluge
+// Purpose: Centralized configuration for API keys, endpoints, and constants
+// ============================================================================
+
+// ============================================================================
+// API KEYS & ENDPOINTS - SHOPIFY
+// ============================================================================
+SHOPIFY_STORE = "your-store.myshopify.com";
+SHOPIFY_ACCESS_TOKEN = "shpat_xxxxxxxxxxxxxxxxxxxx"; // OAuth 2.0 Token
+SHOPIFY_API_VERSION = "2024-01";
+SHOPIFY_PRODUCTS_ENDPOINT = "https://" + SHOPIFY_STORE + "/admin/api/" + SHOPIFY_API_VERSION + "/products.json";
+SHOPIFY_ORDERS_ENDPOINT = "https://" + SHOPIFY_STORE + "/admin/api/" + SHOPIFY_API_VERSION + "/orders.json";
+
+// ============================================================================
+// GOOGLE SHEETS API - DEALS DATA SOURCE
+// ============================================================================
+GOOGLE_SHEET_ID = "YOUR_GOOGLE_SHEET_ID";
+GOOGLE_SHEET_NAME = "Deals of the Day";
+GOOGLE_API_KEY = "AIzaSyxxxxxxxxxxxxxxxx";
+GOOGLE_SHEETS_ENDPOINT = "https://sheets.googleapis.com/v4/spreadsheets/";
+
+// ============================================================================
+// SMS/OTP PROVIDER - TWILIO
+// ============================================================================
+TWILIO_ACCOUNT_SID = "ACxxxxxxxxxxxxxxxx";
+TWILIO_AUTH_TOKEN = "your_auth_token";
+TWILIO_FROM_NUMBER = "+1234567890";
+TWILIO_ENDPOINT = "https://api.twilio.com/2010-04-01/Accounts/" + TWILIO_ACCOUNT_SID + "/Messages.json";
+
+// ============================================================================
+// GITHUB API - AUTO-COMMIT & DEPLOYMENT
+// ============================================================================
+GITHUB_TOKEN = "ghp_xxxxxxxxxxxxxxxxxxxx";
+GITHUB_REPO_OWNER = "SANTHOSH-K06";
+GITHUB_REPO_NAME = "ecommerce-chatbot-zoho-salesiq";
+GITHUB_API_ENDPOINT = "https://api.github.com/repos/" + GITHUB_REPO_OWNER + "/" + GITHUB_REPO_NAME + "/contents";
+
+// ============================================================================
+// EMAIL CONFIGURATION
+// ============================================================================
+EMAIL_SERVICE_ENDPOINT = "https://api.smtp2go.com/email/send"; // Using SMTP2GO or similar
+EMAIL_API_KEY = "api-xxxxxxxxxxxxxx";
+EMAIL_FROM = "noreply@ecommercechatbot.com";
+EMAIL_FROM_NAME = "ShopBot - eCommerce Assistant";
+
+// ============================================================================
+// BOT CONSTANTS & CONFIGURATIONS
+// ============================================================================
+BOT_NAME = "ShopBot";
+BOT_VERSION = "1.0.0";
+BOT_LANGUAGE = "Deluge";
+BOT_PLATFORM = "Zoho SalesIQ";
+CACHE_TTL = 3600; // Cache time-to-live in seconds
+MAX_CART_ITEMS = 50;
+MAX_PRODUCT_DEALS = 10;
+PHONE_OTP_LENGTH = 6;
+PHONE_OTP_VALIDITY = 300; // 5 minutes in seconds
+
+// ============================================================================
+// RESPONSE MESSAGES
+// ============================================================================
+WELCOME_MESSAGE = "Welcome to ShopBot! How can I help you today?";
+ERROR_MESSAGE = "Sorry, something went wrong. Please try again.";
+NO_RESULTS_MESSAGE = "No results found. Try a different search.";
+ORDER_CONFIRMATION_MESSAGE = "Your order has been placed successfully!";
+
+// ============================================================================
+// ECOMMERCE PLATFORM OPTIONS
+// ============================================================================
+ECOMMERCE_PLATFORM = "shopify"; // Options: shopify, woocommerce, ecwid, bigcommerce, magento
+
+function getPlatformEndpoints(platform) {
+    platformConfig = map();
+    
+    if(platform == "shopify") {
+        platformConfig.put("products", SHOPIFY_PRODUCTS_ENDPOINT);
+        platformConfig.put("orders", SHOPIFY_ORDERS_ENDPOINT);
+        platformConfig.put("token", SHOPIFY_ACCESS_TOKEN);
+    }
+    else if(platform == "woocommerce") {
+        // Add WooCommerce endpoints here
+        platformConfig.put("base", "https://yourstore.com/wp-json/wc/v3");
+    }
+    
+    return platformConfig;
+}
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+function getShopifyHeaders() {
+    headers = map();
+    headers.put("X-Shopify-Access-Token", SHOPIFY_ACCESS_TOKEN);
+    headers.put("Content-Type", "application/json");
+    return headers;
+}
+
+function getGoogleAPIHeaders() {
+    headers = map();
+    headers.put("Content-Type", "application/json");
+    return headers;
+}
+
+function getGitHubHeaders() {
+    headers = map();
+    headers.put("Authorization", "token " + GITHUB_TOKEN);
+    headers.put("Content-Type", "application/json");
+    headers.put("Accept", "application/vnd.github.v3+json");
+    return headers;
+}
+
+// ============================================================================
+// LOGGING FUNCTIONS
+// ============================================================================
+
+function logInfo(message) {
+    info("[ShopBot] " + message);
+}
+
+function logError(message, exception) {
+    if(exception != null) {
+        error("[ShopBot] ERROR: " + message + " - " + exception.getMessage());
+    }
+    else {
+        error("[ShopBot] ERROR: " + message);
+    }
+}
+
+// ============================================================================
+// API REQUEST HELPER
+// ============================================================================
+
+function makeAPIRequest(url, method, headers, bodyParams) {
+    try {
+        response = invokeurl
+        (
+            [
+                url: url,
+                type: method,
+                headers: headers,
+                parameters: bodyParams
+            ]
+        );
+        return response;
+    }
+    catch(exception e) {
+        logError("API Request failed for " + url, e);
+        return null;
+    }
+}
+
+// ============================================================================
+// CONFIGURATION EXPORT
+// ============================================================================
+
+return map(
+    "shopify_store", SHOPIFY_STORE,
+    "platform", ECOMMERCE_PLATFORM,
+    "bot_name", BOT_NAME,
+    "version", BOT_VERSION
+);
